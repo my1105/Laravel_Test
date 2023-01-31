@@ -31,4 +31,18 @@ class ContactRequest extends FormRequest
             'body' => ['required', 'string', 'max:2000'],
         ];
     }
+
+    public function attributes()
+    {
+        return[
+            'body' => 'お問い合わせ内容'
+        ];
+    }
+
+    public function messages()
+    {
+        return[
+             'phone.regex' => ':attributeを正しく入力してください'
+        ];
+    }
 }
