@@ -34,26 +34,17 @@ class AdminBlogController extends Controller
         return to_route('admin.blogs.index')->with('success','ブログを投稿しました。');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //指定したIDのブログの編集画面
     public function edit($id)
     {
-        //
+        $blog = Blog::find($id);
+        return view('admin.blogs.edit',['blog' => $blog]);
     }
 
     /**
