@@ -43,20 +43,14 @@ class AdminBlogController extends Controller
     //指定したIDのブログの編集画面
     public function edit($id)
     {
-        $blog = Blog::find($id);
+        $blog = Blog::findOrFail($id);
         return view('admin.blogs.edit',['blog' => $blog]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //指定したIDのブログの更新処理
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
