@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,5 @@ Route::get('/admin/blogs/{blog}',[AdminBlogController::class,'edit'])->name('adm
 Route::put('/admin/blogs/{blog}',[AdminBlogController::class,'update'])->name('admin.blogs.update');
 Route::delete('/admin/blogs/{blog}',[AdminBlogController::class,'destroy'])->name('admin.blogs.destroy');
 
+//ユーザ管理
+Route::get('/admin/users/create',[UserController::class,'create'])->name('admin.users.create');
