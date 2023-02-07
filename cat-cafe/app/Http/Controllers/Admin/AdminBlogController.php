@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
+use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 class AdminBlogController extends Controller
 {
     //ブログ一覧画面
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::latest('updated_at')->simplepaginate(10);
         return view('admin.blogs.index',['blogs'=>$blogs]);
     }
 
@@ -41,26 +42,36 @@ class AdminBlogController extends Controller
     }
 
     //指定したIDのブログの編集画面
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
+
         return view('admin.blogs.edit',['blog' => $blog]);
     }
 
     //指定したIDのブログの更新処理
-    public function update(Request $request, $id)
+    public function update(UpdateBlogRequest $request, $id)
     {
-        
+         $blog = Blog::findOrFail($id);
+         $updateDate = $request->validated();
+
+         if($request->has('image')){
+            Storage::disk('public')->delete($blog->image);
+
+            $updateDate['image'] = $request->file('image')->store('blogs','public');
+
+         }
+         $blog->update($updateDate);
+
+         return to_route('admin.blogs.index')->with('success','ブログを更新しました。');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+//指定したIDのブログの削除
     public function destroy($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+        Storage::disk('public')->delete($blog->image);
+        return to_route('admin.blogs.index')->with('success','ブログを削除しました。');
+
     }
 }
