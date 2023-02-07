@@ -8,6 +8,9 @@ use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Admin\Category;
+use App\Models\Cat;
+use App\Models\Category as ModelsCategory;
 
 class AdminBlogController extends Controller
 {
@@ -21,6 +24,7 @@ class AdminBlogController extends Controller
     //ブログ投稿画面
     public function create()
     {
+
         return view('admin.blogs.create');
     }
 
@@ -44,8 +48,9 @@ class AdminBlogController extends Controller
     //指定したIDのブログの編集画面
     public function edit(Blog $blog)
     {
-
-        return view('admin.blogs.edit',['blog' => $blog]);
+        $categories = ModelsCategory::all();
+        $cats = Cat::all();
+        return view('admin.blogs.edit',['blog' => $blog,'categories'=>$categories,'cats' => $cats]);
     }
 
     //指定したIDのブログの更新処理
@@ -60,6 +65,8 @@ class AdminBlogController extends Controller
             $updateDate['image'] = $request->file('image')->store('blogs','public');
 
          }
+         $blog->category()->associate($updateDate['category_id']);
+         $blog->cats()->sync($updateDate['cats'] ?? []);
          $blog->update($updateDate);
 
          return to_route('admin.blogs.index')->with('success','ブログを更新しました。');
