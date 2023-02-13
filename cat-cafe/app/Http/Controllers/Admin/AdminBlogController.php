@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Admin\Category;
 use App\Models\Cat;
 use App\Models\Category as ModelsCategory;
+use Illuminate\Support\Facades\Auth;
 
 class AdminBlogController extends Controller
 {
@@ -18,6 +19,7 @@ class AdminBlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest('updated_at')->simplepaginate(10);
+
         return view('admin.blogs.index',['blogs'=>$blogs]);
     }
 
