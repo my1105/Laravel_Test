@@ -54,7 +54,7 @@ Route::prefix('/admin')
 //ユーザ管理
 Route::get('/admin/users/create',[UserController::class,'create'])->name('admin.users.create');
 Route::post('/admin/users/users',[UserController::class,'store'])->name('admin.users.store');*/
-Route::prefix('/admin')
+/*Route::prefix('/admin')
 ->name('admin.')
 ->group(function() {
     // ログイン時のみアクセス可能なルート
@@ -77,4 +77,12 @@ Route::prefix('/admin')
          Route::post('/login', [AuthController::class, 'login']);
      });
  });
+*/
+Route::get('/admin/blogs',[AdminBlogController::class,'index'])->name('admin.blogs.index')->middleware('auth');
+Route::get('/admin/blogs/create',[AdminBlogController::class,'create'])->name('admin.blogs.create')->middleware('auth');
+Route::post('/admin/blogs',[AdminBlogController::class,'store'])->name('admin.blogs.store')->middleware('auth');
+Route::get('/admin/blogs/{blog}',[AdminBlogController::class,'edit'])->name('admin.blogs.edit')->middleware('auth');
+Route::put('/admin/blogs/{blog}',[AdminBlogController::class,'update'])->name('admin.blogs.update')->middleware('auth');
+Route::delete('/admin/blogs/{blog}',[AdminBlogController::class,'destroy'])->name('admin.blogs.destroy')->middleware('auth');
 
+//Route::get()
