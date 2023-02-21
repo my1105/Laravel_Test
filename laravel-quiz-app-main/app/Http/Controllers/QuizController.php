@@ -13,7 +13,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
+        return view('quizzes.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        //
+        return view('quizzes.create');
     }
 
     /**
@@ -34,7 +34,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('quizzes.index');
     }
 
     /**
@@ -45,7 +45,7 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('quizzes.show');
     }
 
     /**
@@ -79,6 +79,6 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return json_encode(['message' => 'ID:'.$id.' が削除されるIDです(仮の出力)']);
     }
 }
