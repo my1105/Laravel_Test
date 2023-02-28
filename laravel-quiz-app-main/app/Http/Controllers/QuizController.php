@@ -14,7 +14,9 @@ class QuizController extends Controller
      */
     public function index()
     {
-        return view('quizzes.index');
+        return view('quizzes.index', [
+            'quizzes' => Quiz::all(),
+        ]);
     }
 
     /**
@@ -71,7 +73,9 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        return view('quizzes.show');
+        return view('quizzes.show', [
+            'quiz' => Quiz::find($id),
+        ]);
     }
 
     /**
