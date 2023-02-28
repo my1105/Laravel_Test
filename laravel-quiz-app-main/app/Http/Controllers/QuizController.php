@@ -86,7 +86,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

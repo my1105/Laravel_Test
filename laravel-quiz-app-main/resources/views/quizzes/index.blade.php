@@ -15,6 +15,7 @@
           <th scope="col" style="width:10%">#</th>
           <th scope="col">問題</th>
           <th scope="col" style="width:10%">操作</th>
+          <th scope="col" style="width:10%"></th>
         </tr>
       </thead>
       <tbody>
